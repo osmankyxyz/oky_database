@@ -1,6 +1,7 @@
 ## Core LaTeX/BibTeX auxiliary files
 *.aux
 *.lof
+*.log
 *.lot
 *.fls
 *.out
