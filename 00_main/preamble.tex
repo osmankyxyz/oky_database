@@ -1,0 +1,92 @@
+%%% STYLES
+\usepackage{amsthm}
+\usepackage{mdframed}
+
+% Define theorem style
+\newtheoremstyle{framed}
+  {0pt}{0pt}
+  {\normalfont}
+  {}
+  {\bfseries}
+  {.}
+  {.5em}
+  {}
+
+\theoremstyle{framed}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+%\usepackage[style=numeric]{biblatex}
+%\addbibresource{nuclear.bib}
+% Surround with frame
+\surroundwithmdframed[
+  linewidth=1pt,
+  linecolor=black,
+  backgroundcolor=gray!10,
+  innertopmargin=10pt,
+  innerbottommargin=10pt
+]{theorem}
+
+\surroundwithmdframed[
+  linewidth=1pt,
+  linecolor=gray,
+  backgroundcolor=gray!5
+]{remark}%\geometry{showframe} % display margins for debugging page layout
+\surroundwithmdframed[
+  linewidth=1pt,
+  linecolor=black,
+  backgroundcolor=blue!5
+]{lemma}%\geometry{showframe} % display margins for debugging page layout
+
+\usepackage{graphicx} % allow embedded images
+  \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+  \graphicspath{{graphics/}} % set of paths to search for images
+\usepackage{amsmath}  % extended mathematics
+\usepackage{booktabs} % book-quality tables
+\usepackage{units}    % non-stacked fractions and better unit spacing
+\usepackage{multicol} % multiple column layout facilities
+\usepackage{lipsum}   % filler text
+\usepackage{fancyvrb} % extended verbatim environments
+  \fvset{fontsize=\normalsize}% default font size for fancy-verbatim environments
+
+\usepackage{hyperref}
+% Standardize command font styles and environments
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\setcounter{secnumdepth}{2}
+
+%%title
+% Make section and subsection headings bold (Tufte-compatible)
+\titleformat{\section}%
+  [frame]% shape
+  {\normalfont\Large\bfseries}% format applied to label+text
+  {\thesection}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+
+\titleformat{\subsection}%
+  [hang]% shape
+  {\normalfont\large\bfseries}% format applied to label+text
+  {\thesubsection}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
+
+\titleformat{\subsubsection}%
+  [hang]% shape
+  {\normalfont\normalsize\bfseries}% format applied to label+text
+  {\thesubsubsection}% label
+  {1em}% horizontal separation between label and title body
+  {}% before the title body
+  []% after the title body
