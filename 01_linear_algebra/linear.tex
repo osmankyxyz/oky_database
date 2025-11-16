@@ -1,0 +1,188 @@
+\documentclass{../00_main/tufte-handout}
+
+\input{../00_main/preamble.tex}
+\title{Linear Algebra}
+\author[Osman Kagan Yayla]{Osman Kagan Yayla}
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+\begin{abstract}
+	This is a document to collect notes on linear algebra.
+\end{abstract}
+\section{Row Echelon Form}
+\begin{definition}[Row Echelon Form]
+A matrix $M$ is in \textbf{row echelon form} (REF) if:
+\begin{enumerate}
+
+    \item All non-zero rows are above any rows that are all zero.
+
+    \item The leading coefficient (the first non-zero entry from the left, also
+	    called the \textbf{pivot}) of each non-zero row is strictly to the
+	    right of the leading coefficient of the row above it.
+
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\begin{equation*}
+\begin{bmatrix}
+1 & * & * & * & * & * & * \\
+0 & 0 & 2 & * & * & * & * \\
+0 & 0 & 0 & 3 & * & * & * \\
+0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+\end{example}
+
+\begin{definition}[Elementary Row Operations]
+The following operations on a matrix are called \textbf{elementary row operations}:
+\begin{enumerate}
+    \item Subtract a multiple of the $i$-th row from the $j$-th row, where $j \neq i$.
+    \item Reorder (permute/exchange) any two rows.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+Any matrix $A \in \mathbb{R}^{m \times n}$ can be converted into row echelon form using only elementary row operations.
+\end{theorem}
+
+\begin{proof}
+We prove by induction on the number of rows of $A$.
+
+We begin with the general matrix $A$:
+\begin{equation*}
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,k} & \cdots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,k} & \cdots & a_{2,n} \\
+\vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+a_{k,1} & a_{k,2} & \cdots & a_{k,k} & \cdots & a_{k,n} \\
+\vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+a_{m,1} & a_{m,2} & \cdots & a_{m,k} & \cdots & a_{m,n}
+\end{bmatrix}
+\end{equation*}
+
+\textbf{Base Case:} If $a_{1,1}$ equals zero, exchange the first row with a row that has a nonzero term in the first column. If $a_{1,1}$ does not equal zero, use Gaussian elimination to reduce the rest of the first column to zero. This is done by multiplying row 1 by the ratio of $a_{\ell,1}$ to $a_{1,1}$ and subtracting it from row $\ell$, for all rows $\ell > 1$. The following matrix results:
+\begin{equation*}
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,k} & \cdots & a_{1,n} \\
+0 & a_{2,2} & \cdots & a_{2,k} & \cdots & a_{2,n} \\
+\vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+0 & a_{k,2} & \cdots & a_{k,k} & \cdots & a_{k,n} \\
+\vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+0 & a_{m,2} & \cdots & a_{m,k} & \cdots & a_{m,n}
+\end{bmatrix}
+\end{equation*}
+
+\textbf{Induction Step:} Assume that the first $k-1$ columns are in row echelon form. We need to show the first $k$ columns can be reduced to row echelon form. We start with the following matrix:
+\begin{equation*}
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,k-1} & a_{1,k} & \cdots & a_{1,n} \\
+0 & a_{2,2} & \cdots & a_{2,k-1} & a_{2,k} & \cdots & a_{2,n} \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & a_{k-1,k-1} & a_{k-1,k} & \cdots & a_{k-1,n} \\
+0 & 0 & \cdots & 0 & a_{k,k} & \cdots & a_{k,n} \\
+0 & 0 & \cdots & 0 & a_{k+1,k} & \cdots & a_{k+1,n} \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 0 & a_{m,k} & \cdots & a_{m,n}
+\end{bmatrix}
+\end{equation*}
+
+If $a_{k,k}$ equals zero, exchange the row with a row with a nonzero term in the $k$-th column. If $a_{k,k}$ does not equal zero, use Gaussian elimination to reduce the rest of the $k$-th column to zero. This is done by multiplying row $k$ by the ratio of $a_{\ell,k}$ to $a_{k,k}$ and subtracting it from row $\ell$, for all rows $\ell > k$. The following matrix results:
+\begin{equation*}
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,k-1} & a_{1,k} & \cdots & a_{1,n} \\
+0 & a_{2,2} & \cdots & a_{2,k-1} & a_{2,k} & \cdots & a_{2,n} \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & a_{k-1,k-1} & a_{k-1,k} & \cdots & a_{k-1,n} \\
+0 & 0 & \cdots & 0 & a_{k,k} & \cdots & a_{k,n} \\
+0 & 0 & \cdots & 0 & 0 & \cdots & a_{k+1,n} \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 0 & 0 & \cdots & a_{m,n}
+\end{bmatrix}
+\end{equation*}
+
+The first $k$ columns are in row echelon form and by induction, the entirety of matrix $A$ can be reduced to row echelon form.
+\end{proof}
+
+
+\begin{definition}[Pivot]
+If $A \in \mathbb{R}^{m \times n}$ is in REF, then the leading non-zero coefficient in each row is called a \textbf{pivot}.
+\end{definition}
+
+\begin{lemma}
+The number of pivots is at most $\min\{m, n\}$.
+\end{lemma}
+
+\begin{proof}
+By picture in class.
+\end{proof}
+
+\section{System of Linear Equations}
+
+Input $Ax=b$, and the output we are looking for is
+
+
+We are given $Ax = b$. Let us first consider $b = 0$ (the homogeneous case). Doing elementary row transformations, we obtain $Ux = 0$. Observe $c = 0$.
+
+\begin{example}
+Consider the matrix:
+\begin{equation*}
+A = \begin{bmatrix}
+1 & 3 & 3 & 2 \\
+2 & 6 & 9 & 5 \\
+-1 & -3 & 3 & 0
+\end{bmatrix}
+\end{equation*}
+
+Applying row operations:
+\begin{equation*}
+\begin{bmatrix}
+1 & 3 & 3 & 2 \\
+2 & 6 & 9 & 5 \\
+-1 & -3 & 3 & 0
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 3 & 3 & 2 \\
+0 & 0 & 3 & 1 \\
+0 & 0 & 6 & 2
+\end{bmatrix}
+\rightarrow
+\begin{bmatrix}
+1 & 3 & 3 & 2 \\
+0 & 0 & 3 & 1 \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+\end{equation*}
+
+Pivots are 1 and 3. Solutions to $Ax = 0$ are the same as the solutions to $Ux = 0$.
+\begin{equation*}
+\begin{bmatrix}
+1 & 3 & 3 & 2 \\
+0 & 0 & 3 & 1 \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ x_4
+\end{bmatrix}
+= 0
+\end{equation*}
+
+\textbf{Basic variables} are $x_1$ and $x_3$ (with pivots). \textbf{Free variables} are $x_2$ and $x_4$. Pick any value for free variables and solve for the basic variables.
+
+From the second row: $3x_3 + x_4 = 0 \Rightarrow x_3 = -\frac{x_4}{3}$
+
+From the first row: $x_1 + 3x_2 + 3x_3 + 2x_4 = 0 \Rightarrow x_1 = -3x_2 - x_4$
+
+Therefore:
+\begin{equation*}
+x = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{bmatrix}
+= \begin{bmatrix} -3x_2 - x_4 \\ x_2 \\ -\frac{x_4}{3} \\ x_4 \end{bmatrix}
+= x_2 \begin{bmatrix} -3 \\ 1 \\ 0 \\ 0 \end{bmatrix}
++ x_4 \begin{bmatrix} -1 \\ 0 \\ -\frac{1}{3} \\ 1 \end{bmatrix}
+\end{equation*}
+
+Any $x$ of this form must be a solution of $Ax = 0$ and any solution to $Ax = 0$ must be of this form.
+\end{example}
+\end{document}
